@@ -79,6 +79,8 @@ def getMovieShow():
 # TODO add option to see Trailer in Vlc
 # TODO display image
 
+# Create two json files in the path of this file named "main1.json" and "main2.json" for it to work
+# You need to manually delete all the output from both the json files after each execution 
 
 if __name__ == '__main__':
  getMovieShow()
