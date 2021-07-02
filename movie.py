@@ -9,8 +9,8 @@ def imbdGetId():
     moviename = input('Please enter a Movie name\n')
     url = "https://data-imdb1.p.rapidapi.com/movie/imdb_id/byTitle/{}/".format(moviename)
     headers = {
-        'x-rapidapi-key': "0c0700ea98msh1d0839326b5d08ep14b18bjsn64d6236b4ad4",
-        'x-rapidapi-host': "data-imdb1.p.rapidapi.com"
+        'x-rapidapi-key': "Enter Your Rapid Api Key Here",
+        'x-rapidapi-host': "Enter Rapid Api Hostname"
     }
     response = requests.request("GET", url, headers=headers)
     response_string = response.text
@@ -28,8 +28,8 @@ def getMovieShow():
     url = "https://imdb-internet-movie-database-unofficial.p.rapidapi.com/film/{}".format(imbdGetId())
 
     headers = {
-        'x-rapidapi-key': "0c0700ea98msh1d0839326b5d08ep14b18bjsn64d6236b4ad4",
-        'x-rapidapi-host': "imdb-internet-movie-database-unofficial.p.rapidapi.com"
+        'x-rapidapi-key': "Enter Your Rapid Api Key Here",
+        'x-rapidapi-host': "Enter Rapid Api Hostname"
     }
 
     response = requests.request("GET", url, headers=headers)
