@@ -81,6 +81,9 @@ def getMovieShow():
     mydb.commit()
     print(mycursor.rowcount, "was inserted.") 
 
+
+def print_data():
+
 # TODO to work on this 
 # def delete1():
 #     obj = json.load(open("main1.json"))
