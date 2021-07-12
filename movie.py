@@ -1,6 +1,6 @@
+import mysql.connector
 import json
 import requests
-
 
 def imbdGetId():
     # Example of two words movie
@@ -9,8 +9,8 @@ def imbdGetId():
     moviename = input('Please enter a Movie name\n')
     url = "https://data-imdb1.p.rapidapi.com/movie/imdb_id/byTitle/{}/".format(moviename)
     headers = {
-        'x-rapidapi-key': "Enter Your Rapid Api Key Here",
-        'x-rapidapi-host': "Enter Rapid Api Hostname"
+#         'x-rapidapi-key': "",
+#         'x-rapidapi-host': ""
     }
     response = requests.request("GET", url, headers=headers)
     response_string = response.text
@@ -28,8 +28,8 @@ def getMovieShow():
     url = "https://imdb-internet-movie-database-unofficial.p.rapidapi.com/film/{}".format(imbdGetId())
 
     headers = {
-        'x-rapidapi-key': "Enter Your Rapid Api Key Here",
-        'x-rapidapi-host': "Enter Rapid Api Hostname"
+        'x-rapidapi-key': "",
+        'x-rapidapi-host': ""
     }
 
     response = requests.request("GET", url, headers=headers)
@@ -57,9 +57,31 @@ def getMovieShow():
         print("3:", data['cast'][2]['actor'] + " as " + data['cast'][2]['character'])
         print("4:", data['cast'][3]['actor'] + " as " + data['cast'][3]['character'])
         print("5:", data['cast'][4]['actor'] + " as " + data['cast'][4]['character'])
+        print('\n')
+        print('--------------------------------------')
+        print('\n')
+        id1 = data['id']
+        title = data['title']
+        plot = data['plot']
+        year = data['year']
+        cast1 = data['cast'][0]['actor']
         json.dumps(data, indent=4)
+        mydb = mysql.connector.connect(
+        host="localhost",
+        user="",
+        password="",
+        database=""
+    )
+    mycursor = mydb.cursor()
+    sql =  "INSERT INTO movie (id, title, plot, year1, cast) VALUES (%s, %s, %s, %s, %s)"
+    val = [
+      (id1, title, plot, year, cast1)
+    ]
+    mycursor.executemany(sql, val)
+    mydb.commit()
+    print(mycursor.rowcount, "was inserted.") 
 
-# To Work on this
+# TODO to work on this 
 # def delete1():
 #     obj = json.load(open("main1.json"))
 # 
@@ -73,14 +95,12 @@ def getMovieShow():
 #     open("updated-file.json", "w").write(
 #         json.dumps(obj, sort_keys=True, indent=4)
 #     )
-
 # TODO add Tv Show search
 # TODO add Genre,Year,Actor...Search
 # TODO add option to see Trailer in Vlc
 # TODO display image
 
-# Create two json files in the path of this file named "main1.json" and "main2.json" for it to work
-# You need to manually delete all the output from both the json files after each execution 
 
 if __name__ == '__main__':
- getMovieShow()
+    getMovieShow()
+
